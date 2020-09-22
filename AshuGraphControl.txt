@@ -1,0 +1,51 @@
+AshuGraph Control
+
+Plot more than one Graphs , Can Print  them, you can customize the colors of graph and scales
+u can scroll graph ,  can track mouse points, can draw gridlines. please don't give try with negative value
+or a positive value with greather than 32767.
+An excellent graph control with its limitations. user draw  graph in own units (whatever it may)
+
+How to use :
+Initalization:
+1. Set Simple Properties in design mode
+         BackColor : backcolor of graph control
+        Font : font in which scales(horizontal & vetical)  will be dispalyed
+       Forecolor : decides the colors of scales (horizontal & vertical)
+       GridColor: decides the color of grids if ShowGrids prperty is true
+       TooltipBkColor : used to track & display  data points(X,Y) as tooltip when mouse moves over graph  and TrackMousePointer property is true
+       ToolTipForeColor : same as above
+      TrackMousePointer :  whether track points when mouse move, i.e. when mouse move datapoints (x,y) should be displayed at location of mouse pointer
+                                             can be changed in run time
+      XGap ,YGap :   in user units, the interval on scales(horizontal & vertical)  at which  values are marked
+     XMinPosition ,YMinPosition:in user units, Minimum position of scales , should not negative, usually 0.00
+  XUnitToPixel, YUnitToPixels: how to map user units to pixels, i.e., 1 user unit in X direction  = ? pixels
+                                                    for example, user can map 1 meter/second  to 2 pixels , if speed is in vertical direction , by setting m_YUnitToPixels = 2
+XScaleHeight ,YScaleWidth: user can change the scales ' width , depening upon font & font sizes he uses for scales
+
+
+2. Initialization at run time
+       NOTE:
+                     Presently maximum limit on No of Graphs you can draw in control is 5 and you can change it by 
+                     changing the value of constant  MAX_NO_OF_GRAPHS in source code
+
+
+       InitializeMe : whenever  your program strats or when you want to remove all graphs from control, if you are removing graphs , then 
+                             after calling it, call invalidate()
+   
+Functions:
+
+     Invalidate(): always call, when u make any cahnges in graphs , i.e. adding a point to graph, deleting a graph, changing a point of graph
+                               it refreshes graph control with new values
+      SetColor( color in rgb, graph no) : display a graph ( graph no ) with specified color      
+     Addpoint(x,y,graphNO) : add point x,y to graph no graphNo
+       GetData(x,y,index,graphNo): retrieve the data x,y from graph graphNo, at specific index ( index  in which order you added the data)
+                                                          if success return true
+       SetData(x,y,index,graphNo): change the data x,y at specific index in graph graphNo ; cannot be used to add data to graph
+                                                        (Index - in which order you added data to this graph) if success return true
+          
+       RemoveGraph(graphNo) :  doesn't display graph , you can use this graphNo to add new graph to control, after using this call Invalidate
+      
+Printing:
+
+     PrintSetting(leftMargin in Pixels, top Margins in Pixels,Header for graph , label for x axis, label for y axis, variable to decide to print page no( 0 for don't print , 1 for print on top, 2  for print on bottom),zoom factor for zooming printing  of graph ( in percentage, for simple printing value should be 100),PaperSize   = 9 for A4 size ; = 10 for A4 small size;  = 1 for letter size  ; = 8 for A3 size; = 11 for a5 size(for more see help on "printer" object in vb editor, print quality  = -1 for draft printting  and  = - 4 for high resolution)
+   PrintMe()  : to print graph from your default printer
